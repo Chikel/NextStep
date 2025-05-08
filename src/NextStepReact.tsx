@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { useNextStep } from './NextStepContext';
 import { motion, useInView } from 'motion/react';
 import { useWindowAdapter } from './adapters/window';
+import SmoothSpotlight from './SmoothSpotlight';
 
 // Types
 import { NextStepProps } from './types';
@@ -1025,13 +1026,21 @@ const NextStepReact: React.FC<NextStepProps> = ({
               </div>
             )}
 
+            <SmoothSpotlight
+                x={pointerPosition.x - pointerPadOffset}
+                y={pointerPosition.y - pointerPadOffset}
+                width={pointerPosition.width + pointerPadding}
+                height={pointerPosition.height + pointerPadding}
+                padding={pointerPadding}
+                radius={pointerRadius}
+              />
+  
             {/* Pointer */}
             <motion.div
               data-name="nextstep-pointer"
               style={{
                 position: 'relative',
                 zIndex: 999,
-                boxShadow: `0 0 200vw 9999vh rgba(${shadowRgb}, ${shadowOpacity})`,
                 borderRadius: `${pointerRadius}px ${pointerRadius}px ${pointerRadius}px ${pointerRadius}px`,
                 pointerEvents: 'none',
               }}
